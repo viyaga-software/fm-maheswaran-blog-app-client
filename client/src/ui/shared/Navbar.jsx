@@ -22,7 +22,7 @@ const Navbar = () => {
                     <div className={`h-[3px] bg-black w-6 rounded-md transition-all ease-in-out origin-left ${open && "-rotate-45"}`}></div>
                 </div>
                 {/* MOBILE LINK LIST START*/}
-                <div className={`w-full h-screen bg-[#e6e6ff] absolute top-16 ${open ? "right-0" : "-right-[100%]"} transition-all ease-in-out flex flex-col items-center justify-center gap-8 font-medium text-lg`}>
+                <div className={`w-full h-[calc(100vh-4rem)] bg-[#e6e6ff] absolute top-16 ${open ? "right-0" : "-right-[100%]"} transition-all ease-in-out flex flex-col items-center justify-center gap-8 font-medium text-xl`}>
                     <Link href="/">Home</Link>
                     <Link href="/posts?sort=trending">Trending</Link>
                     <Link href="/posts?sort=popular">Most Popular</Link>
