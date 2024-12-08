@@ -6,10 +6,10 @@ import FeaturedPostCard from "./FeaturedPostCard";
 const FeaturedPosts = () => {
 
   const posts = [
-    { title: "chess", img: "/images/puzzle.jpg", category: "End Games", createdAt: "05/12/2024", slug: "080905" },
-    { title: "chess", img: "/images/featured.jpeg", category: "End Games", createdAt: "05/12/2024", slug: "080905" },
-    { title: "chess", img: "/images/featured.jpeg", category: "End Games", createdAt: "05/12/2024", slug: "080905" },
-    { title: "chess", img: "/images/featured.jpeg", category: "End Games", createdAt: "05/12/2024", slug: "080905" },
+    { title: "Chess Unlocked:Secrets of Grandmaster Play", img: "/images/puzzle.jpg", category: "End Games", createdAt: "05/12/2024", slug: "080905" },
+    { title: "Chess Unlocked:Secrets of Grandmaster Play", img: "/images/featured.jpeg", category: "End Games", createdAt: "05/12/2024", slug: "080905" },
+    { title: "Chess Unlocked:Secrets of Grandmaster Play", img: "/images/featured.jpeg", category: "End Games", createdAt: "05/12/2024", slug: "080905" },
+    { title: "Chess Unlocked:Secrets of Grandmaster Play", img: "/images/featured.jpeg", category: "End Games", createdAt: "05/12/2024", slug: "080905" },
   ];
 
   if (!posts || posts.length === 0) {
@@ -36,7 +36,7 @@ const FeaturedPosts = () => {
         {/* title */}
         <Link
           href={posts[0].slug}
-          alt="" 
+          alt=""
           className="text-xl lg:text-3xl font-semibold lg:font-bold"
         >
           {posts[0].title}
@@ -45,7 +45,7 @@ const FeaturedPosts = () => {
       {/* Others */}
       <div className="w-full lg:w-1/2 flex flex-col gap-4">
         {/* second */}
-        {posts.slice(1).map((post, index) => 
+        {posts.slice(1).map((post, index) =>
           <FeaturedPostCard key={index} post={post} />
         )}
       </div>
