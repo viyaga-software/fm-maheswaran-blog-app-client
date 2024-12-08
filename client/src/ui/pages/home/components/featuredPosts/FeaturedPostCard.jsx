@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { format } from "timeago.js"
 
-const FeaturedPostCard = ({ post }) => {
+const FeaturedPostCard = ({ post, sNo }) => {
     return (
         <>
             {post && <div className="lg:h-1/3 flex justify-between gap-4">
@@ -19,7 +19,7 @@ const FeaturedPostCard = ({ post }) => {
                 <div className="w-2/3">
                     {/* details */}
                     <div className="flex items-center gap-4 text-sm lg:text-base mb-4">
-                        <h1 className="font-semibold">02.</h1>
+                        <h1 className="font-semibold">0{sNo}.</h1>
                         <Link href="/" alt="" className="text-blue-800">{post.category}</Link>
                         <span className="text-gray-500 text-sm">{format(post.createdAt)}</span>
                     </div>
