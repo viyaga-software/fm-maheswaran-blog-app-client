@@ -7,9 +7,9 @@ const PostListItem = ({ post }) => {
   return (
     <div className="flex flex-col xl:flex-row gap-8 mb-12">
       {/* image */}
-      {post.img && (
+      {post.featured_image && (
         <div className="md:hidden xl:block xl:w-1/3">
-          <Image src={post.img} className="rounded-2xl object-cover" width="735" height="735" alt="" />
+          <Image src={post.featured_image} className="rounded-2xl object-cover" width="735" height="735" alt="" />
         </div>
       )}
       {/* details */}
@@ -19,12 +19,12 @@ const PostListItem = ({ post }) => {
         </Link>
         <div className="flex items-center gap-2 text-gray-400 text-sm">
           <span>Written by</span>
-          <Link className="text-blue-800" href={`/posts?author=${post.user.username}`}>{post.user.username}</Link>
+          <Link className="text-blue-800" href={`/posts?author=${post.user?.username}`}>{post.user?.username}</Link>
           <span>on</span>
           <Link href={`/${post.slug}`} className="text-blue-800">{post.category}</Link>
           <span>{format(post.createdAt)}</span>
         </div>
-        <p>{post.desc}</p>
+        <p>{post.excerpt}</p>
         <Link href={`/${post.slug}`} className="underline text-blue-800 text-sm">
           Read More
         </Link>

@@ -1,6 +1,26 @@
+import { getAllBlogs } from "@/lib/actions/blog";
 import PostListItem from "./PostListItem"
 
-const PostList = () => {
+const PostList = async () => {
+
+    const page = 1
+    const pageLimit = 10
+
+    const fields = "title,subtitle,slug,excerpt,featured_image,views,comments_count,createdAt,blog_status";
+
+    const filters = [
+        { field: "blog_status", operator: "$eq", value: "published" }
+    ];
+
+    const sort = ""
+
+    const pagination = { page, pageSize: pageLimit };
+
+    const blogs = await getAllBlogs({ fields, filters, pagination, sort, revalidate: 60 * 60 * 24 * 365, tags: ["blogs"] });
+
+    console.log({ blogs });
+
+    if (blogs?.error) return <ServerError message="An error occurred. Please try again later." />
 
     const posts = [
         {
@@ -38,7 +58,7 @@ const PostList = () => {
     return (
         <div className="">
             <h1 className="my-8 text-2xl text-gray-600">Recent Posts</h1>
-            {posts.map((post, index) => <PostListItem key={index} post={post} />)}
+            {blogs?.data?.map((post, index) => <PostListItem key={index} post={post} />)}
         </div>
     )
 }
