@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Search from "./Search";
 
 const MainCategories = () => {
   return (
@@ -26,7 +25,7 @@ const MainCategories = () => {
       </div>
       <span className="text-xl font-medium">|</span>
       {/* search */}
-      <Search />
+      <Input placeholder="Search..." className="max-w-xs" />
     </div>
   );
 };
