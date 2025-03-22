@@ -30,6 +30,19 @@ const getBlogById = asyncHandler(async ({ documentId, fields = null, populate = 
     return res?.data?.data;
 });
 
+
+const getBlogBySlug = asyncHandler(async ({ documentId, fields = null, populate = [] }) => {
+    if (!documentId) return { error: "Blog ID is required." };
+
+    let apiUrl = `${SERVER_ONE}/blogs/${documentId}`;
+    if (fields) apiUrl += `?fields=${fields}`;
+
+    const res = await axios.get(apiUrl);
+    if(res?.data?.data?.blog_status === "deleted") throw new Error("Blog Not Found");
+
+    return res?.data?.data;
+});
+
 const addBlog = asyncHandler(async (blogData) => {
     const requiredFields = ["title", "slug", "content", "blog_status"];
     const missingFields = requiredFields.filter((field) => !blogData[field]);

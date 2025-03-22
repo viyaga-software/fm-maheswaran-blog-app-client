@@ -13,8 +13,8 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "FM Mahesh",
-  description: "FIDE Master Maheswaran's chess training",
+  title: "FM Maheshwaran",
+  description: "FIDE Master Maheswaran's chess blog",
 };
 
 export default function RootLayout({ children }) {
