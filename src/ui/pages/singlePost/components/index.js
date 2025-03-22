@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { format } from "timeago.js";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import Search from "../../home/components/mainCategories/Search";
+import Utils from "@/lib/utils";
 
 const PostHeader = ({ data, isLoading }) => {
   return (
@@ -35,7 +35,7 @@ const PostHeader = ({ data, isLoading }) => {
               <Link href="/" className="text-blue-800">
                 {data?.category}
               </Link>
-              <span>{format(data?.createdAt || "")}</span>
+              <span>{Utils.getTimeAgo(data?.createdAt || "")}</span>
             </>
           )}
         </div>

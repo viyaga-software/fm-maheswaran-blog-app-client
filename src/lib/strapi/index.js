@@ -1,18 +1,16 @@
-import { revalidateTag } from 'next/cache';
+"use server";
+
 import qs from 'qs';
-import { getCartQuery } from './quries/cart';
-import { getCollectionProductsQuery } from './quries/collection';
-import { getFooterMenuQuery, getHeaderMenuQuery } from './quries/menu';
-import { getProductQuery, getRelatedProductsQuery } from './quries/product';
-import { Menu } from './types';
+import { getFeaturedBlogsQuery, getRecentBlogsQuery } from './queries/blogQuery';
+import { errResponse } from '../utils';
 
 const endpoint = process.env.STRAPI_API_ENDPOINT;
 const headers = {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`
+    Authorization: `Bearer ${process.env.API_TOKEN}`
 };
 
-export async function strapiFetch({ path, query, method = 'GET', body, tags, revalidateTime = 18000 }) {
+export async function strapiFetch({ path, query, method = 'GET', body, tags, revalidateTime = 60 * 60 * 24 * 365 }) {
 
     try {
         const url = `${endpoint}${path}${query ? `?${qs.stringify(query, { encodeValuesOnly: true })}` : ''}`; console.log({ url, query });
@@ -23,7 +21,8 @@ export async function strapiFetch({ path, query, method = 'GET', body, tags, rev
             ...(tags && { next: { tags, revalidate: revalidateTime } })
         });
 
-        const responseBody = await result.json();
+        let responseBody = null
+        if (method !== 'DELETE') responseBody = await result.json();
 
         if (!result.ok) {
             throw responseBody;
@@ -34,15 +33,30 @@ export async function strapiFetch({ path, query, method = 'GET', body, tags, rev
             body: responseBody
         };
     } catch (e) {
-        throw {
-            error: e,
-            path
-        };
+        // throw {
+        //     error: errResponse(e),
+        //     path
+        // };
+        console.log({ error: e });
+
+        return { error: errResponse(e) }
     }
 }
 
+export async function getRecentBlogs({ page, pageSize, sort, search, categories }) {
+    const query = getRecentBlogsQuery({ page, pageSize, sort, search, categories });
+    const res = await strapiFetch({ path: '/blogs', query, tags: ['blogs'] });
+    console.log({ res: res.body.data });
+    if (res.error) return { error: res.error }
+    
+    return { data: res.body.data, count: res.body.meta.pagination.total };
+}
 
-export async function getAllBlogs({ pagination }) {
-    const res = await strapiFetch({ path: '/blogs', tags: ['blogs'] });
-    return res.body.data;
+export async function getFeaturedBlogs() {
+    const query = getFeaturedBlogsQuery();
+    const res = await strapiFetch({ path: '/blogs', query, tags: ['blogs'] });
+    console.log({ res: res.body.data });
+    if (res.error) return { error: res.error }
+    
+    return { data: res.body.data };
 }

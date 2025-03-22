@@ -1,49 +1,44 @@
 import Image from "next/image";
 import Link from "next/link";
-import { format } from "timeago.js";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ArrowRightIcon } from "lucide-react";
 import Utils from "@/lib/utils";
+import { format } from "date-fns";
 
 const PostListItem = ({ post }) => {
   return (
-    <Card className="flex flex-col md:flex-row gap-8 mb-12 p-6 shadow-sm">
-      {/* Image */}
-      {post.featured_image && (
-        <div className="md:w-1/3">
-          <Image
-            src={post.featured_image}
-            className="rounded-2xl object-cover"
-            width="735"
-            height="735"
-            alt={post.title}
-          />
-        </div>
-      )}
-      {/* Details */}
-      <CardContent className="flex flex-col gap-4 md:w-2/3">
-        <Link href={`/${post.slug}`} className="text-2xl font-semibold hover:text-primary transition-colors">
-          { Utils.textTruncate(post.title, 100)}
-        </Link>
-        <div className="flex items-center gap-2 text-gray-500 text-sm">
-          <span>Written by</span>
-          <Link className="text-primary font-medium" href={`/posts?author=${post.user?.username}`}>
-            {post.user?.username}
-          </Link>
-          <span>on</span>
-          <Link href={`/${post.slug}`} className="text-primary font-medium">
-            {post.category}
-          </Link>
-          <span>{Utils.getTimeAgo(post.createdAt)}</span>
-        </div>
-        <p className="text-gray-700 text-sm">{Utils.textTruncate(post.excerpt, 120)}</p>
-        <Link href={`/${post.slug}`}>
-          <Button variant="link" className="p-0 text-primary">
-            Read More
+    <Link href={`/${post.slug}`} className="block group">
+      <Card className="rounded-2xl overflow-hidden shadow-lg bg-white transition-all group-hover:shadow-xl">
+        {/* Image */}
+        {post.featured_image && (
+          <div className="w-full">
+            <Image
+              src={post.featured_image}
+              className="w-full object-cover aspect-[16/9] transition-transform group-hover:scale-105"
+              width="735"
+              height="410"
+              alt={post.title}
+            />
+          </div>
+        )}
+
+        {/* Details */}
+        <CardContent className="p-6 flex flex-col gap-4">
+          <h2 className="text-xl font-semibold text-gray-900 group-hover:text-primary transition-colors">
+            {Utils.textTruncate(post.title, 80)}
+          </h2>
+
+          <p className="text-gray-600 text-sm">
+            {format(new Date(post.createdAt), "MM/dd/yyyy")} - {Utils.textTruncate(post.excerpt, 200)}
+          </p>
+
+          <Button variant="link" className="p-0 text-primary flex items-center gap-1">
+            Read More <ArrowRightIcon className="w-4 h-4" />
           </Button>
-        </Link>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </Link>
   );
 };
 
