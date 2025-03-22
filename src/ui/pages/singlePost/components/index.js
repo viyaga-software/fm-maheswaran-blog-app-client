@@ -43,13 +43,13 @@ const PostHeader = ({ data, isLoading }) => {
   );
 };
 
-const BlogContent = ({ data, isLoading }) => {
+const BlogContent = ({ content, isLoading }) => {
   return (
     <div className="prose max-w-none text-gray-800 leading-relaxed text-lg">
       {isLoading ? (
         [...Array(6)].map((_, i) => <Skeleton key={i} className="h-6 w-full rounded-md" />)
       ) : (
-        <div dangerouslySetInnerHTML={{ __html: data?.content }} />
+        <div dangerouslySetInnerHTML={{ __html: content }} />
       )}
     </div>
   );
@@ -106,7 +106,8 @@ const SinglePost = ({ data }) => {
             />
           )}
         </div>
-        <BlogContent data={data} isLoading={isLoading} />
+        <BlogContent content={data?.free_content} isLoading={isLoading} />
+        <BlogContent content={data?.content} isLoading={isLoading} />
       </div>
       <Sidebar data={data} isLoading={isLoading} />
     </div>
