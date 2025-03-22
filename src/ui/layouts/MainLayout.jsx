@@ -2,11 +2,11 @@ import Navbar from '../shared/Navbar'
 
 const MainLayout = ({ children }) => {
     return (
-        <div className='px-4 md:px-8 lg:px-16 lx:px-32 2xl:px-64'>
+        <div className="max-w-4xl mx-auto px-4 md:px-8 lg:px-12 xl:px-16">
             <Navbar />
-            {children}
+            <main className="mt-6 space-y-8">{children}</main>
         </div>
     )
 }
 
-export default MainLayout
+export default MainLayout;
