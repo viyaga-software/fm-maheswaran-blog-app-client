@@ -1,7 +1,7 @@
 "use server";
 
 import qs from 'qs';
-import { getFeaturedBlogsQuery, getRecentBlogsQuery } from './queries/blogQuery';
+import { getBlogBySlugQuery, getFeaturedBlogsQuery, getRecentBlogsQuery } from './queries/blogQuery';
 import { errResponse } from '../utils';
 
 const endpoint = process.env.STRAPI_API_ENDPOINT;
@@ -59,4 +59,12 @@ export async function getFeaturedBlogs() {
     if (res.error) return { error: res.error }
     
     return { data: res.body.data };
+}
+
+export async function getBlogBySlug(slug) {
+    const query = getBlogBySlugQuery(slug);
+    const res = await strapiFetch({ path: '/blogs', query, tags: ['blogs'] });
+    if (res.error) return { error: res.error }
+    
+    return { data: res.body.data[0] };
 }

@@ -30,17 +30,18 @@ export const getRecentBlogsQuery = ({ page, pageSize, sort = ["createdAt:desc"],
 export const getBlogBySlugQuery = (slug) => {
     return {
         fields: [
-            "title", "subtitle", "slug", "excerpt", "featured_image", "views",
-            "comments_count", "createdAt", "blog_status", "content"
+            "title", "subtitle", "slug", "excerpt", "featured_image",
+            "createdAt", "free_content","content", "seo_meta_title",
+            "seo_meta_description"
         ],
         populate: {
             author: { fields: ["username", "email"] },
             categories: { fields: ["name"] },
-            tags: true,
             comments: { fields: ["content", "createdAt"], populate: { user: { fields: ["username"] } } }
         },
         filters: {
-            slug: { $eq: slug }
+            slug: { $eq: slug },
+            blog_status: { $eq: "published" }
         }
     };
 };

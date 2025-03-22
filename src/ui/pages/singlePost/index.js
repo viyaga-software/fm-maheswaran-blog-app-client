@@ -1,10 +1,10 @@
 import MainLayout from "@/ui/layouts/MainLayout"
 import SinglePost from "./components"
 
-const SinglePostPage = () => {
+const SinglePostPage = ({ data }) => {
   return (
     <MainLayout>
-        <SinglePost />
+        <SinglePost data={data} />
     </MainLayout>
   )
 }

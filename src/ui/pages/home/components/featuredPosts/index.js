@@ -20,7 +20,7 @@ const FeaturedPosts = async () => {
 
   return (
     <div className="mt-10 flex flex-col lg:flex-row gap-8">
-      <Card className="w-full lg:w-1/2 shadow-xl border rounded-2xl overflow-hidden">
+      <Card className="w-full lg:w-1/3 shadow-xl border rounded-2xl overflow-hidden">
         <CardContent className="flex flex-col gap-5 p-5">
           {posts[0].featured_image && (
             <Image
@@ -44,14 +44,14 @@ const FeaturedPosts = async () => {
           >
             {posts[0].title}
           </Link>
-          <p className="text-gray-600">{posts[0].excerpt}</p>
+          <p className="text-gray-600">{Utils.textTruncate(posts[0].excerpt, 220)}</p>
           <Button variant="outline" asChild>
             <Link href={`/${posts[0].slug}`}>Read More</Link>
           </Button>
         </CardContent>
       </Card>
 
-      <div className="w-full lg:w-1/2 flex flex-col gap-6">
+      <div className="w-full lg:w-2/3 flex flex-col gap-6">
         {posts.slice(1).map((post, index) => (
           <FeaturedPostCard key={post.id} post={post} sNo={index + 1} />
         ))}
