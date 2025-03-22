@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 const FeaturedPostCard = ({ post, sNo }) => {
   return (
     <Link href={`/${post.slug}`}>
-      <Card className="flex flex-col md:flex-row gap-4 p-4 border rounded-xl transition hover:bg-gray-100">
+      <Card className="flex flex-col md:flex-row gap-4 p-4 border rounded-xl transition bg-white">
         {post.featured_image && (
           <div className="w-full md:w-1/3 h-40 relative overflow-hidden rounded-lg">
             <Image
