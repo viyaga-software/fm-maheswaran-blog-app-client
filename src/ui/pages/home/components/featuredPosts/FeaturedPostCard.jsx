@@ -7,7 +7,7 @@ const FeaturedPostCard = ({ post }) => {
     <Link href={`/${post.slug}`} className="block group">
       <div className="flex gap-6 items-start transition-all">
         {post.featured_image && (
-          <div className="w-32 h-24 md:w-40 md:h-28 overflow-hidden rounded-lg">
+          <div className="w-32 h-24 md:w-40 md:h-28 overflow-hidden rounded-lg relative">
             <Image
               src={post.featured_image}
               layout="fill"
