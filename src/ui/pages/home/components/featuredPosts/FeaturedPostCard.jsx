@@ -2,12 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import Utils from "@/lib/utils";
 
-const FeaturedPostCard = ({ post, sNo }) => {
+const FeaturedPostCard = ({ post }) => {
   return (
     <Link href={`/${post.slug}`} className="block group">
-      <div className="flex flex-col md:flex-row gap-6 p-4 border border-gray-200 rounded-xl transition hover:bg-gray-50">
+      <div className="flex gap-6 items-start transition-all">
         {post.featured_image && (
-          <div className="w-full md:w-1/3 h-40 relative overflow-hidden rounded-lg">
+          <div className="w-32 h-24 md:w-40 md:h-28 overflow-hidden rounded-lg">
             <Image
               src={post.featured_image}
               layout="fill"
@@ -17,17 +17,12 @@ const FeaturedPostCard = ({ post, sNo }) => {
             />
           </div>
         )}
-        <div className="w-full md:w-2/3 flex flex-col gap-3">
-          <div className="flex items-center gap-3 text-sm text-gray-500">
-            <span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-md font-medium">
-              {sNo}
-            </span>
-            <span>{Utils.getTimeAgo(post.createdAt)}</span>
-          </div>
-          <h2 className="text-lg font-semibold group-hover:text-blue-600 transition">
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-500">{Utils.getTimeAgo(post.createdAt)}</span>
+          <h2 className="text-lg font-semibold leading-tight group-hover:text-blue-600 transition">
             {post.title}
           </h2>
-          <p className="text-gray-600 text-sm">{Utils.textTruncate(post.excerpt, 80)}</p>
+          <p className="text-gray-600 text-sm">{Utils.textTruncate(post.excerpt, 90)}</p>
         </div>
       </div>
     </Link>
