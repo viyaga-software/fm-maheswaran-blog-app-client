@@ -4,48 +4,40 @@ import Link from "next/link";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Search from "../../home/components/mainCategories/Search";
 import Utils from "@/lib/utils";
 
 const PostHeader = ({ data, isLoading }) => {
   return (
-    <Card className="p-8 flex flex-col gap-6 shadow-lg rounded-xl bg-white">
+    <div className="p-8 flex flex-col gap-4 bg-white">
       {isLoading ? (
         <Skeleton className="h-10 w-3/4 rounded-md" />
       ) : (
-        <h1 className="text-3xl md:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight">
+        <h1 className="text-4xl font-bold text-gray-900 leading-tight font-merriweather">
           {data?.title}
         </h1>
       )}
 
-      <div className="flex items-center gap-3 text-gray-500 text-sm">
+      <div className="flex items-center gap-3 text-gray-500 text-sm font-inter">
         {isLoading ? (
           <Skeleton className="h-4 w-1/2 rounded-md" />
         ) : (
           <>
-            <span>Written by</span>
+            <span>by</span>
             <Link href="/" className="text-blue-600 font-semibold">
               {data?.author.username}
             </Link>
-            <span>on</span>
-            <span>{Utils.getTimeAgo(data?.createdAt || "")}</span>
           </>
         )}
       </div>
-      {isLoading ? (
-        <Skeleton className="h-6 w-full rounded-md" />
-      ) : (
-        <p className="text-gray-600 font-medium">{data?.excerpt}</p>
-      )}
-    </Card>
+    </div>
   );
 };
 
 const BlogContent = ({ content, isLoading }) => {
   return (
-    <div className="prose max-w-none text-gray-800 leading-relaxed text-lg">
+    <div className="prose max-w-none text-gray-800 leading-relaxed text-lg font-inter">
       {isLoading ? (
         [...Array(6)].map((_, i) => <Skeleton key={i} className="h-6 w-full rounded-md" />)
       ) : (
@@ -57,8 +49,8 @@ const BlogContent = ({ content, isLoading }) => {
 
 const Sidebar = ({ data, isLoading }) => {
   return (
-    <aside className="px-6 py-4 bg-gray-100 rounded-xl shadow-md">
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">Author</h2>
+    <aside className="px-6 py-4 bg-gray-50 rounded-xl">
+      <h2 className="text-lg font-semibold text-gray-800 mb-4 font-merriweather">Author</h2>
       <div className="flex items-center gap-4">
         {isLoading ? (
           <Skeleton className="w-12 h-12 rounded-full" />
@@ -76,11 +68,8 @@ const Sidebar = ({ data, isLoading }) => {
           </Link>
         )}
       </div>
-      <p className="text-sm text-gray-600 mt-2">
-        {isLoading ? <Skeleton className="h-4 w-full rounded-md" /> : "Chess enthusiast and blogger."}
-      </p>
       <Separator className="my-6" />
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">Search</h2>
+      <h2 className="text-lg font-semibold text-gray-800 mb-4 font-merriweather">Search</h2>
       <Search />
     </aside>
   );
@@ -101,13 +90,15 @@ const SinglePost = ({ data }) => {
               src={data?.featured_image}
               width={800}
               height={400}
-              className="rounded-lg shadow-md object-cover w-full"
+              className="rounded-lg object-cover w-full"
               alt="Featured Image"
             />
           )}
         </div>
-        <BlogContent content={data?.free_content} isLoading={isLoading} />
-        <BlogContent content={data?.content} isLoading={isLoading} />
+        <div className="flex flex-col gap-6">
+          <BlogContent content={data?.free_content} isLoading={isLoading} />
+          <BlogContent content={data?.content} isLoading={isLoading} />
+        </div>
       </div>
       <Sidebar data={data} isLoading={isLoading} />
     </div>
