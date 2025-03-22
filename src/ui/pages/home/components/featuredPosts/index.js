@@ -6,7 +6,6 @@ import { getFeaturedBlogs } from "@/lib/strapi";
 import Utils from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-
 const FeaturedPosts = async () => {
   const { data: posts, error } = await getFeaturedBlogs();
 
@@ -20,16 +19,18 @@ const FeaturedPosts = async () => {
 
   return (
     <div className="mt-10 flex flex-col lg:flex-row gap-8">
-      <Card className="w-full lg:w-1/3 shadow-xl border rounded-2xl overflow-hidden">
+      <Card className="w-full lg:w-1/3 border rounded-2xl overflow-hidden">
         <CardContent className="flex flex-col gap-5 p-5">
           {posts[0].featured_image && (
-            <Image
-              src={posts[0].featured_image}
-              className="rounded-2xl object-cover w-full"
-              width={900}
-              height={450}
-              alt={posts[0].title}
-            />
+            <div className="w-full h-48 md:h-56 lg:h-64 relative overflow-hidden rounded-xl">
+              <Image
+                src={posts[0].featured_image}
+                layout="fill"
+                objectFit="cover"
+                className="rounded-xl"
+                alt={posts[0].title}
+              />
+            </div>
           )}
           <div className="flex items-center gap-4 text-gray-500 text-sm">
             <span>{Utils.getTimeAgo(posts[0].createdAt)}</span>
