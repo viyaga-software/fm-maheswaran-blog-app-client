@@ -1,10 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
-import FeaturedPostCard from "./FeaturedPostCard";
 import { getFeaturedBlogs } from "@/lib/strapi";
 import Utils from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import FeaturedPostCard from "./FeaturedPostCard";
 
 const FeaturedPosts = async () => {
   const { data: posts, error } = await getFeaturedBlogs();
@@ -19,15 +17,15 @@ const FeaturedPosts = async () => {
 
   return (
     <div className="mt-10 flex flex-col lg:flex-row gap-8">
-      <Card className="w-full lg:w-1/3 border rounded-2xl overflow-hidden bg-white">
-        <CardContent className="flex flex-col gap-5 p-5">
+      <div className="w-full lg:w-1/3 border border-gray-200 rounded-2xl overflow-hidden bg-white">
+        <div className="flex flex-col gap-5 p-5">
           {posts[0].featured_image && (
             <div className="w-full h-48 md:h-56 lg:h-64 relative overflow-hidden rounded-xl">
               <Image
                 src={posts[0].featured_image}
                 layout="fill"
                 objectFit="cover"
-                className="rounded-xl"
+                className="rounded-xl transition-transform duration-300 hover:scale-105"
                 alt={posts[0].title}
               />
             </div>
@@ -46,11 +44,14 @@ const FeaturedPosts = async () => {
             {posts[0].title}
           </Link>
           <p className="text-gray-600">{Utils.textTruncate(posts[0].excerpt, 220)}</p>
-          <Button variant="outline" asChild>
-            <Link href={`/${posts[0].slug}`}>Read More</Link>
-          </Button>
-        </CardContent>
-      </Card>
+          <Link
+            href={`/${posts[0].slug}`}
+            className="inline-block mt-3 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition"
+          >
+            Read More
+          </Link>
+        </div>
+      </div>
 
       <div className="w-full lg:w-2/3 flex flex-col gap-6">
         {posts.slice(1).map((post, index) => (
