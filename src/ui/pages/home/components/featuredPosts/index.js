@@ -16,46 +16,35 @@ const FeaturedPosts = async () => {
   }
 
   return (
-    <div className="mt-10 flex flex-col lg:flex-row gap-8">
-      <div className="w-full lg:w-1/3 border border-gray-200 rounded-2xl overflow-hidden bg-white">
-        <div className="flex flex-col gap-5 p-5">
-          {posts[0].featured_image && (
-            <div className="w-full h-48 md:h-56 lg:h-64 relative overflow-hidden rounded-xl">
-              <Image
-                src={posts[0].featured_image}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-xl transition-transform duration-300 hover:scale-105"
-                alt={posts[0].title}
-              />
-            </div>
-          )}
-          <div className="flex items-center gap-4 text-gray-500 text-sm">
-            <span>{Utils.getTimeAgo(posts[0].createdAt)}</span>
-            <span>•</span>
-            <span>{posts[0].views} Views</span>
-            <span>•</span>
-            <span>{posts[0].comments_count} Comments</span>
+    <div className="mt-10 space-y-12">
+      {/* Featured Post (Large Image) */}
+      <div className="relative">
+        {posts[0].featured_image && (
+          <div className="w-full h-64 md:h-80 lg:h-96 relative overflow-hidden rounded-lg">
+            <Image
+              src={posts[0].featured_image}
+              layout="fill"
+              objectFit="cover"
+              className="rounded-lg transition-transform duration-300 hover:scale-105"
+              alt={posts[0].title}
+            />
           </div>
-          <Link
-            href={`/${posts[0].slug}`}
-            className="text-2xl font-bold hover:text-blue-600 transition"
-          >
-            {posts[0].title}
-          </Link>
-          <p className="text-gray-600">{Utils.textTruncate(posts[0].excerpt, 220)}</p>
-          <Link
-            href={`/${posts[0].slug}`}
-            className="inline-block mt-3 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition"
-          >
-            Read More
-          </Link>
+        )}
+        <div className="absolute bottom-5 left-5 bg-black bg-opacity-60 text-white p-4 rounded-lg">
+          <span className="text-sm">{Utils.getTimeAgo(posts[0].createdAt)}</span>
+          <h2 className="text-xl md:text-2xl font-bold mt-2">
+            <Link href={`/${posts[0].slug}`} className="hover:text-gray-300 transition">
+              {posts[0].title}
+            </Link>
+          </h2>
+          <p className="hidden md:block text-sm mt-1">{Utils.textTruncate(posts[0].excerpt, 150)}</p>
         </div>
       </div>
 
-      <div className="w-full lg:w-2/3 flex flex-col gap-6">
-        {posts.slice(1).map((post, index) => (
-          <FeaturedPostCard key={post.id} post={post} sNo={index + 1} />
+      {/* Other Posts in List */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.slice(1).map((post) => (
+          <FeaturedPostCard key={post.id} post={post} />
         ))}
       </div>
     </div>
@@ -63,4 +52,4 @@ const FeaturedPosts = async () => {
 };
 
 export default FeaturedPosts;
-        
+    
