@@ -18,19 +18,20 @@ const FeaturedPosts = async () => {
   return (
     <div className="mt-10 space-y-12">
       {/* Featured Post (Large Image) */}
-      <div className="relative">
+      <div className="relative w-full h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden">
         {posts[0].featured_image && (
-          <div className="w-full h-64 md:h-80 lg:h-96 relative overflow-hidden rounded-lg">
-            <Image
-              src={posts[0].featured_image}
-              layout="fill"
-              objectFit="cover"
-              className="rounded-lg transition-transform duration-300 hover:scale-105"
-              alt={posts[0].title}
-            />
-          </div>
+          <Image
+            src={posts[0].featured_image}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-lg transition-transform duration-300 hover:scale-105"
+            alt={posts[0].title}
+          />
         )}
-        <div className="absolute bottom-5 left-5 bg-black bg-opacity-60 text-white p-4 rounded-lg">
+        {/* Gradient Overlay for Better Readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        {/* Text Overlay */}
+        <div className="absolute bottom-5 left-5 text-white p-4">
           <span className="text-sm">{Utils.getTimeAgo(posts[0].createdAt)}</span>
           <h2 className="text-xl md:text-2xl font-bold mt-2">
             <Link href={`/${posts[0].slug}`} className="hover:text-gray-300 transition">
@@ -52,4 +53,4 @@ const FeaturedPosts = async () => {
 };
 
 export default FeaturedPosts;
-    
+          
