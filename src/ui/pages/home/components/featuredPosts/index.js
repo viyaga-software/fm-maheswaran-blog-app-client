@@ -19,7 +19,7 @@ const FeaturedPosts = async () => {
 
   return (
     <div className="mt-10 flex flex-col lg:flex-row gap-8">
-      <Card className="w-full lg:w-1/3 border rounded-2xl overflow-hidden">
+      <Card className="w-full lg:w-1/3 border rounded-2xl overflow-hidden bg-white">
         <CardContent className="flex flex-col gap-5 p-5">
           {posts[0].featured_image && (
             <div className="w-full h-48 md:h-56 lg:h-64 relative overflow-hidden rounded-xl">
@@ -62,3 +62,4 @@ const FeaturedPosts = async () => {
 };
 
 export default FeaturedPosts;
+        
