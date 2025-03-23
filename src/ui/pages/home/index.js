@@ -8,8 +8,8 @@ import PostList from "./components/postList"
 const HomePage = () => {
   return (
     <MainLayout>
-      <div className="mt-4 flex flex-col gap-4">
-        <BreadCrumb prev={[{ name: "Home", path: "/" }]} currentPage="Blogs and Articles" />
+      <div className="max-w-6xl mx-auto mxmt-4 flex flex-col gap-4">
+        <BreadCrumb />
         <Introduction />
         <MainCategories />
         <FeaturedPosts />

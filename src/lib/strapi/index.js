@@ -66,5 +66,7 @@ export async function getBlogBySlug(slug) {
     const res = await strapiFetch({ path: '/blogs', query, tags: ['blogs'] });
     if (res.error) return { error: res.error }
     
+    console.log({ res: res.body.data[0] });
+    
     return { data: res.body.data[0] };
 }
