@@ -4,113 +4,108 @@ import Link from "next/link";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import Search from "../../home/components/mainCategories/Search";
 import Utils from "@/lib/utils";
-import { useEffect, useState } from "react";
 
 const PostHeader = ({ data, isLoading }) => {
   return (
-    <Card className="p-6 flex gap-8 shadow-lg bg-white rounded-xl">
-      <div className="lg:w-3/5 flex flex-col gap-6">
-        {isLoading ? (
-          <Skeleton className="h-10 w-3/4 rounded-md" />
-        ) : (
-          <h1 className="text-3xl xl:text-5xl font-bold text-gray-900">{data?.title}</h1>
-        )}
-        <div className="flex items-center gap-2 text-gray-500 text-sm">
-          {isLoading ? (
-            <Skeleton className="h-4 w-1/2 rounded-md" />
-          ) : (
-            <>
-              <span>Written by</span>
-              <Link href="/" className="text-blue-600 font-medium">
-                {data?.author?.username || "Unknown"}
-              </Link>
-              <span>on</span>
-              <span>{Utils.getTimeAgo(data?.createdAt || "")}</span>
-            </>
-          )}
-        </div>
-        {isLoading ? <Skeleton className="h-6 w-full rounded-md" /> : <p className="text-gray-600 font-medium">{data?.excerpt}</p>}
-      </div>
+    <div className="pb-8 border-b border-gray-300">
       {isLoading ? (
-        <Skeleton className="hidden lg:block w-2/5 h-[250px] rounded-xl" />
+        <Skeleton className="h-12 w-3/4 rounded-md" />
       ) : (
-        data?.featured_image && (
-          <div className="hidden lg:block w-2/5">
-            <Image src={data.featured_image} width="600" height="600" className="rounded-xl object-cover" alt="Blog Image" />
-          </div>
-        )
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight font-merriweather">
+          {data?.title}
+        </h1>
       )}
-    </Card>
+
+      <div className="flex items-center gap-3 text-gray-600 text-sm mt-3">
+        {isLoading ? (
+          <Skeleton className="h-4 w-1/2 rounded-md" />
+        ) : (
+          <>
+            <span>by</span>
+            <Link href="/" className="text-blue-600 font-semibold">
+              {data?.author.username}
+            </Link>
+            <span>• {Utils.getTimeAgo(data?.createdAt || "")}</span>
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 
-const AuthorSection = ({ data, isLoading }) => {
+const BlogContent = ({ content, isLoading }) => {
   return (
-    <Card className="p-4 flex flex-col gap-4 bg-white shadow-md rounded-xl">
+    <div className="prose lg:prose-xl max-w-none text-gray-800 leading-relaxed text-lg font-inter">
+      {isLoading ? (
+        [...Array(6)].map((_, i) => <Skeleton key={i} className="h-6 w-full rounded-md" />)
+      ) : (
+        <div dangerouslySetInnerHTML={{ __html: content }} />
+      )}
+    </div>
+  );
+};
+
+const Sidebar = ({ data, isLoading }) => {
+  return (
+    <aside className="px-6 py-4 border-l border-gray-300">
+      <h2 className="text-lg font-semibold text-gray-800 mb-4 font-merriweather">Author</h2>
       <div className="flex items-center gap-4">
         {isLoading ? (
           <Skeleton className="w-12 h-12 rounded-full" />
         ) : (
           <Avatar>
-            <AvatarImage src={data?.author?.image} />
-            <AvatarFallback>{data?.author?.username?.[0]}</AvatarFallback>
+            <AvatarImage src={data?.author.img} />
+            <AvatarFallback>{data?.author.username[0]}</AvatarFallback>
           </Avatar>
         )}
         {isLoading ? (
           <Skeleton className="h-4 w-20 rounded-md" />
         ) : (
           <Link href="/" className="text-blue-600 font-medium">
-            {data?.author?.username || "Unknown"}
+            {data?.author.username}
           </Link>
         )}
       </div>
-      <p className="text-sm text-gray-500">
-        {isLoading ? <Skeleton className="h-4 w-full rounded-md" /> : "Chess enthusiast and blogger"}
+      <p className="text-sm text-gray-600 mt-2 font-inter">
+        {isLoading ? <Skeleton className="h-4 w-full rounded-md" /> : "Chess enthusiast and blogger."}
       </p>
-    </Card>
-  );
-};
-
-const Sidebar = ({ data, isLoading }) => {
-  return (
-    <div className="px-4 h-max sticky top-8 w-full md:w-1/4">
-      <h1 className="mb-4 text-sm font-medium">Author</h1>
-      <AuthorSection data={data} isLoading={isLoading} />
       <Separator className="my-6" />
-      <h1 className="mb-4 text-sm font-medium">Search</h1>
+      <h2 className="text-lg font-semibold text-gray-800 mb-4 font-merriweather">Search</h2>
       <Search />
-    </div>
+    </aside>
   );
 };
 
 const SinglePost = ({ data }) => {
-  console.log({ data });
-
   const isLoading = !data;
 
   return (
-    <div className="flex flex-col gap-8">
-      <PostHeader data={data} isLoading={isLoading} />
-      <div className="flex flex-col md:flex-row gap-12 justify-between">
-        <div className="lg:text-lg flex flex-col gap-6 text-justify">
+    <div className="max-w-5xl mx-auto py-10 grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="md:col-span-2 flex flex-col gap-8">
+        <PostHeader data={data} isLoading={isLoading} />
+        <div className="w-full">
           {isLoading ? (
-            [...Array(6)].map((_, i) => <Skeleton key={i} className="h-6 w-full rounded-md" />)
+            <Skeleton className="h-[400px] w-full rounded-lg" />
           ) : (
-            <>
-              <div dangerouslySetInnerHTML={{ __html: data?.free_content }} className="prose max-w-none"></div>
-              <div dangerouslySetInnerHTML={{ __html: data?.content }} className="prose max-w-none"></div>
-            </>
+            <Image
+              src={data?.featured_image}
+              width={1200}
+              height={600}
+              className="rounded-lg object-cover w-full"
+              alt="Featured Image"
+            />
           )}
         </div>
-        <Sidebar data={data} isLoading={isLoading} />
+        <BlogContent content={data?.free_content} isLoading={isLoading} />
+        <BlogContent content={data?.content} isLoading={isLoading} />
       </div>
+      <Sidebar data={data} isLoading={isLoading} />
     </div>
   );
 };
 
 export default SinglePost;
+  

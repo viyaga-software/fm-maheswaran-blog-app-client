@@ -1,36 +1,30 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
 import Utils from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 
-const FeaturedPostCard = ({ post, sNo }) => {
+const FeaturedPostCard = ({ post }) => {
   return (
-    <Link href={`/${post.slug}`}>
-      <Card className="flex gap-6 p-5 shadow-lg border rounded-xl hover:shadow-xl transition">
+    <Link href={`/${post.slug}`} className="block group">
+      <div className="flex gap-6 items-start transition-all">
         {post.featured_image && (
-          <div className="w-1/3 relative aspect-[16/9] overflow-hidden rounded-lg">
+          <div className="w-32 h-24 md:w-40 md:h-28 overflow-hidden rounded-lg relative">
             <Image
               src={post.featured_image}
-              className="w-full h-full"
-              fill
+              layout="fill"
+              objectFit="cover"
+              className="rounded-lg transition-transform duration-300 group-hover:scale-105"
               alt={post.title}
             />
           </div>
         )}
-        <CardContent className="w-2/3 flex flex-col gap-3">
-          <div className="flex items-center gap-3 text-sm text-gray-600">
-            <Badge variant="secondary">0{sNo}</Badge>
-            <span>{Utils.getTimeAgo(post.createdAt)}</span>
-          </div>
-          <h2
-            className="text-lg font-semibold hover:text-blue-600 transition"
-          >
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-500">{Utils.getTimeAgo(post.createdAt)}</span>
+          <h2 className="text-lg font-semibold leading-tight group-hover:text-blue-600 transition">
             {post.title}
           </h2>
-          <p className="text-gray-500 text-sm">{Utils.textTruncate(post.excerpt, 80)}</p>
-        </CardContent>
-      </Card>
+          <p className="text-gray-600 text-sm">{Utils.textTruncate(post.excerpt, 90)}</p>
+        </div>
+      </div>
     </Link>
   );
 };

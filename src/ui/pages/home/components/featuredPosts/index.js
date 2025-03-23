@@ -1,11 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
-import FeaturedPostCard from "./FeaturedPostCard";
 import { getFeaturedBlogs } from "@/lib/strapi";
 import Utils from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-
+import FeaturedPostCard from "./FeaturedPostCard";
 
 const FeaturedPosts = async () => {
   const { data: posts, error } = await getFeaturedBlogs();
@@ -19,41 +16,36 @@ const FeaturedPosts = async () => {
   }
 
   return (
-    <div className="mt-10 flex flex-col lg:flex-row gap-8">
-      <Card className="w-full lg:w-1/3 shadow-xl border rounded-2xl overflow-hidden">
-        <CardContent className="flex flex-col gap-5 p-5">
-          {posts[0].featured_image && (
-            <Image
-              src={posts[0].featured_image}
-              className="rounded-2xl object-cover w-full"
-              width={900}
-              height={450}
-              alt={posts[0].title}
-            />
-          )}
-          <div className="flex items-center gap-4 text-gray-500 text-sm">
-            <span>{Utils.getTimeAgo(posts[0].createdAt)}</span>
-            <span>•</span>
-            <span>{posts[0].views} Views</span>
-            <span>•</span>
-            <span>{posts[0].comments_count} Comments</span>
-          </div>
-          <Link
-            href={`/${posts[0].slug}`}
-            className="text-2xl font-bold hover:text-blue-600 transition"
-          >
-            {posts[0].title}
-          </Link>
-          <p className="text-gray-600">{Utils.textTruncate(posts[0].excerpt, 220)}</p>
-          <Button variant="outline" asChild>
-            <Link href={`/${posts[0].slug}`}>Read More</Link>
-          </Button>
-        </CardContent>
-      </Card>
+    <div className="mt-10 space-y-12">
+      {/* Featured Post (Large Image) */}
+      <div className="relative w-full h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden">
+        {posts[0].featured_image && (
+          <Image
+            src={posts[0].featured_image}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-lg transition-transform duration-300 hover:scale-105"
+            alt={posts[0].title}
+          />
+        )}
+        {/* Gradient Overlay for Better Readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        {/* Text Overlay */}
+        <div className="absolute bottom-5 left-5 text-white p-4">
+          <span className="text-sm">{Utils.getTimeAgo(posts[0].createdAt)}</span>
+          <h2 className="text-xl md:text-2xl font-bold mt-2">
+            <Link href={`/${posts[0].slug}`} className="hover:text-gray-300 transition">
+              {posts[0].title}
+            </Link>
+          </h2>
+          <p className="hidden md:block text-sm mt-1">{Utils.textTruncate(posts[0].excerpt, 150)}</p>
+        </div>
+      </div>
 
-      <div className="w-full lg:w-2/3 flex flex-col gap-6">
-        {posts.slice(1).map((post, index) => (
-          <FeaturedPostCard key={post.id} post={post} sNo={index + 1} />
+      {/* Other Posts in List */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.slice(1).map((post) => (
+          <FeaturedPostCard key={post.id} post={post} />
         ))}
       </div>
     </div>
@@ -61,3 +53,4 @@ const FeaturedPosts = async () => {
 };
 
 export default FeaturedPosts;
+          
