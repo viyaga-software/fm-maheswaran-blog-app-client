@@ -83,7 +83,7 @@ const SinglePost = ({ data }) => {
   const isLoading = !data;
 
   return (
-    <div className="max-w-5xl mx-auto py-10 grid grid-cols-1 md:grid-cols-3 gap-12">
+    <div className="max-w-6xl mx-auto py-10 grid grid-cols-1 md:grid-cols-3 gap-12">
       <div className="md:col-span-2 flex flex-col gap-8">
         <PostHeader data={data} isLoading={isLoading} />
         <div className="w-full">

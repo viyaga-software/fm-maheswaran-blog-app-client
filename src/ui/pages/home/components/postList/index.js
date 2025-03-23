@@ -12,18 +12,16 @@ const PostList = async () => {
   }
 
   return (
-    <div className="my-12">
-      {/* <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Recent Posts</h1> */}
+    <section className="my-12">
+      {/* Recent Posts Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {blogs?.data?.length > 0 ? (
-          blogs.data.map((post, index) => (
-            <PostListItem key={index} post={post} />
-          ))
+          blogs.data.map((post, index) => <PostListItem key={index} post={post} />)
         ) : (
-          <p className="text-center text-gray-500 col-span-full">No posts available.</p>
+          <p className="text-center text-gray-400 col-span-full">No posts available.</p>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

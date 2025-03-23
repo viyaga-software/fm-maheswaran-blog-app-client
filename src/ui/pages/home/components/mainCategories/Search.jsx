@@ -2,20 +2,28 @@
 
 import { Input } from "@/components/ui/input";
 import { Search as SearchIcon } from "lucide-react";
+import { useState } from "react";
 
 const Search = () => {
-  const handleKeyPress = (e) => {
-    // Handle search logic here
+  const [query, setQuery] = useState("");
+
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      console.log("Searching for:", query);
+      // Implement actual search logic here (e.g., router push, API call, etc.)
+    }
   };
 
   return (
-    <div className="flex items-center gap-2 border rounded-full p-2 shadow-sm">
-      <SearchIcon className="w-5 h-5 text-gray-500" />
+    <div className="relative flex items-center w-full max-w-md">
+      <SearchIcon className="absolute left-4 w-5 h-5 text-muted-foreground" />
       <Input
         type="text"
-        placeholder="Search a post..."
-        className="border-none focus:ring-0 bg-transparent"
-        onKeyDown={handleKeyPress}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleSearch}
+        placeholder="Search posts..."
+        className="w-full pl-12 pr-4 py-2 bg-muted text-foreground border border-border rounded-full focus:border-primary focus:ring-2 focus:ring-ring transition-all"
       />
     </div>
   );

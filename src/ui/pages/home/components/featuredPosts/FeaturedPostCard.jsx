@@ -5,9 +5,10 @@ import Utils from "@/lib/utils";
 const FeaturedPostCard = ({ post }) => {
   return (
     <Link href={`/${post.slug}`} className="block group">
-      <div className="flex gap-6 items-start transition-all">
+      <div className="flex gap-5 items-start p-4 bg-secondary rounded-xl shadow-lg transition-all hover:shadow-xl hover:-translate-y-1">
+        {/* Image Thumbnail */}
         {post.featured_image && (
-          <div className="w-32 h-24 md:w-40 md:h-28 overflow-hidden rounded-lg relative">
+          <div className="w-28 h-20 md:w-36 md:h-24 overflow-hidden rounded-lg relative">
             <Image
               src={post.featured_image}
               layout="fill"
@@ -17,12 +18,13 @@ const FeaturedPostCard = ({ post }) => {
             />
           </div>
         )}
+        {/* Post Details */}
         <div className="flex flex-col">
-          <span className="text-sm text-gray-500">{Utils.getTimeAgo(post.createdAt)}</span>
-          <h2 className="text-lg font-semibold leading-tight group-hover:text-blue-600 transition">
+          <span className="text-sm text-gray-400">{Utils.getTimeAgo(post.createdAt)}</span>
+          <h2 className="text-lg font-semibold leading-tight text-foreground group-hover:text-primary transition">
             {post.title}
           </h2>
-          <p className="text-gray-600 text-sm">{Utils.textTruncate(post.excerpt, 90)}</p>
+          <p className="text-gray-500 text-sm">{Utils.textTruncate(post.excerpt, 90)}</p>
         </div>
       </div>
     </Link>

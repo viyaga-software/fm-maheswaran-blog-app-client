@@ -9,13 +9,13 @@ import { format } from "date-fns";
 const PostListItem = ({ post }) => {
   return (
     <Link href={`/${post.slug}`} className="block group">
-      <Card className="rounded-2xl overflow-hidden shadow-lg bg-white transition-all group-hover:shadow-xl">
+      <Card className="rounded-xl overflow-hidden shadow-lg bg-card text-card-foreground transition-all group-hover:shadow-2xl border border-border">
         {/* Image */}
         {post.featured_image && (
           <div className="w-full">
             <Image
               src={post.featured_image}
-              className="w-full object-cover aspect-[16/9] transition-transform group-hover:scale-105"
+              className="w-full object-cover aspect-[16/9] rounded-t-xl transition-transform duration-300 group-hover:scale-105"
               width="735"
               height="410"
               alt={post.title}
@@ -23,19 +23,23 @@ const PostListItem = ({ post }) => {
           </div>
         )}
 
-        {/* Details */}
+        {/* Post Details */}
         <CardContent className="p-6 flex flex-col gap-4">
-          <h2 className="text-xl font-semibold text-gray-900 group-hover:text-primary transition-colors">
+          <h2 className="text-xl font-semibold group-hover:text-primary transition-colors">
             {Utils.textTruncate(post.title, 80)}
           </h2>
 
-          <p className="text-gray-600 text-sm">
-            {format(new Date(post.createdAt), "MM/dd/yyyy")} - {Utils.textTruncate(post.excerpt, 200)}
+          <p className="text-muted-foreground text-sm">
+            {format(new Date(post.createdAt), "MM/dd/yyyy")} - {Utils.textTruncate(post.excerpt, 150)}
           </p>
 
-          <Button variant="link" className="p-0 text-primary flex items-center gap-1">
-            Read More <ArrowRightIcon className="w-4 h-4" />
-          </Button>
+          {/* Read More Button */}
+          <Link href={`/${post.slug}`} className="mt-2 inline-block">
+            <Button variant="ghost" className="py-2 px-3 text-primary-foreground flex items-center gap-1 hover:bg-primary/90 hover:text-background transition-all">
+              <span>Read More</span>
+              <ArrowRightIcon className="w-4 h-4" />
+            </Button>
+          </Link>
         </CardContent>
       </Card>
     </Link>
