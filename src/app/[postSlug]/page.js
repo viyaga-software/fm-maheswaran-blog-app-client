@@ -1,15 +1,14 @@
 import { getBlogBySlug } from "@/lib/strapi"
-import SinglePostPage from "@/ui/pages/singlePost"
+import SinglePost from "@/ui/pages/singlePost/components"
 
 const page = async ({ params }) => {
   const { postSlug } = await params
   const post = await getBlogBySlug(postSlug)
-  if (!post || post.error) {
-    return <p>Post not found</p>
-  }
 
+  if(post.error) return <p>An Error Occurred</p>
+  if(!post.data) return <p>Post Not Found</p>
   return (
-    <SinglePostPage data={post.data} />
+    <SinglePost data={post.data} />
   )
 }
 

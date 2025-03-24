@@ -1,8 +1,0 @@
-.blog-content iframe {
-  @apply mx-auto my-4;
-  display: block; /* Ensures block-level centering */
-  width: 100%;
-  max-width: 560px; /* Standard YouTube video width */
-  aspect-ratio: 16 / 9; /* Ensures responsive aspect ratio */
-  border-radius: 12px; /* Optional: Rounded corners */
-}
