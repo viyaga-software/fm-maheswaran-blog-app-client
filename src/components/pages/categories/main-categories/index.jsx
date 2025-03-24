@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import Search from "@/components/shared/Search";
 import { MenuIcon, XIcon } from "lucide-react";
 import { useState } from "react";
+import Search from "./Search";
 
 const MainCategories = ({ activeCategory }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

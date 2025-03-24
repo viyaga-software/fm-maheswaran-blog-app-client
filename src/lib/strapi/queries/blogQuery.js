@@ -52,12 +52,3 @@ export const getAllBlogSlugsQuery = () => {
         sort: ["createdAt:desc"]
     };
 };
-
-export const getExistingBlogBySlugQuery = (slug) => {
-    return {
-        fields: ["slug"],
-        filters: {
-            slug: { $eq: slug }
-        }
-    };
-};

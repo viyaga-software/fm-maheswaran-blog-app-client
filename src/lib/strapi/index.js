@@ -3,6 +3,7 @@
 import qs from 'qs';
 import { getBlogBySlugQuery, getFeaturedBlogsQuery, getRecentBlogsQuery } from './queries/blogQuery';
 import { errResponse } from '../utils';
+import { getCategoriesQuery } from './queries/categoryQuery';
 
 const endpoint = process.env.STRAPI_API_ENDPOINT;
 const headers = {
@@ -69,4 +70,15 @@ export async function getBlogBySlug(slug) {
     console.log({ res: res.body.data[0] });
     
     return { data: res.body.data[0] };
+}
+
+export async function getCategories({ page, pageSize, sort}) {
+
+    const query = getCategoriesQuery({ page, pageSize, sort });
+    const res = await strapiFetch({ path: '/categories', query, tags: ['categories'] });
+    console.log({ res: res.error });
+
+    if (res.error) return { error: res.error }
+    
+    return { data: res.body.data, count: res.body.meta.pagination.total };
 }

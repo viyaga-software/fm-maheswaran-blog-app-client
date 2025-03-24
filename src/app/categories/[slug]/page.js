@@ -1,10 +1,8 @@
-import React from 'react'
+import BlogsByCategory from '@/components/pages/categories/blogs-by-category'
 
-const page = () => {
+const page = ({ slug }) => {
   return (
-    <div>
-      categories
-    </div>
+    <BlogsByCategory slug={slug} />
   )
 }
 

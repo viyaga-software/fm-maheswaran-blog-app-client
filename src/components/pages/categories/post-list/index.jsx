@@ -1,10 +1,10 @@
 
 // ---- Post List Component ----
-import PostListItem from "@/components/shared/PostListItem";
-import { getCategoryBlogs } from "@/lib/strapi";
+import { getRecentBlogs } from "@/lib/strapi";
+import PostListItem from "./PostListItem";
 
-const PostList = async ({ categorySlug }) => {
-  const blogs = await getCategoryBlogs(categorySlug);
+const PostList = async ({ slug }) => {
+  const blogs = await getRecentBlogs({ page: 1, pageSize: 6, category: slug });
 
   if (blogs?.error) {
     return <p className="text-red-500 text-center">An error occurred. Please try again later.</p>;
