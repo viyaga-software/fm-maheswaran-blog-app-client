@@ -1,15 +1,17 @@
+"use client"
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Search from "./Search";
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 
 const categories = [
-  { name: "All Posts", href: "/posts" },
-  { name: "Openings", href: "/posts?cat=openings" },
-  { name: "Middle Game", href: "/posts?cat=middle-game" },
-  { name: "Endgame", href: "/posts?cat=endgame" },
-  { name: "Tactics", href: "/posts?cat=tactics" },
+  { name: "All Posts", href: "/categories" },
+  { name: "Openings", href: "/categories/openings" },
+  { name: "Middle Game", href: "/categories/middle-game" },
+  { name: "Endgame", href: "/categories/endgame" },
+  { name: "Tactics", href: "/categories/tactics" },
 ];
 
 const MainCategories = () => {
@@ -42,14 +44,27 @@ const MainCategories = () => {
       {/* Mobile Menu Button */}
       <button
         className="md:hidden p-2 rounded-lg text-primary hover:bg-accent hover:text-accent-foreground transition-all"
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        onClick={() => setMobileMenuOpen(true)}
       >
-        <MenuIcon className="w-6 h-6" />
+        <MenuIcon className="w-6 h-6 text-background" />
       </button>
+
+      {/* Search Bar */}
+      <div className="md:hidden">
+        <Search />
+      </div>
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
         <div className="absolute top-16 left-4 right-4 bg-card shadow-lg rounded-lg p-4 flex flex-col gap-3 md:hidden">
+          {/* Close Button */}
+          <button
+            className="self-end p-2 rounded-lg bg-primary hover:bg-accent transition-all"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <XIcon className="w-6 h-6 text-background" />
+          </button>
+
           {categories.map((category) => (
             <Button
               key={category.name}

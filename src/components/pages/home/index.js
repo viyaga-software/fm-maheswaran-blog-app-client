@@ -1,6 +1,6 @@
-import BreadCrumb from "@/ui/shared/BreadCrumb"
-import Introduction from "./components/Introduction"
-import MainCategories from "./components/mainCategories"
+import BreadCrumb from "@/components/shared/BreadCrumb"
+import Introduction from "./components/introduction"
+import MainCategories from "./components/main-categories"
 import FeaturedPosts from "./components/featuredPosts"
 import PostList from "./components/postList"
 

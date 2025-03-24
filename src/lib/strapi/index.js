@@ -43,8 +43,8 @@ export async function strapiFetch({ path, query, method = 'GET', body, tags, rev
     }
 }
 
-export async function getRecentBlogs({ page, pageSize, sort, search, categories }) {
-    const query = getRecentBlogsQuery({ page, pageSize, sort, search, categories });
+export async function getRecentBlogs({ page, pageSize, sort, q, categories }) {
+    const query = getRecentBlogsQuery({ page, pageSize, sort, q, categories });
     const res = await strapiFetch({ path: '/blogs', query, tags: ['blogs'] });
     console.log({ res: res.body.data });
     if (res.error) return { error: res.error }

@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const Introduction = () => {
   return (
     <section className="flex flex-col md:flex-row items-center justify-between gap-8 py-4 md:py-8">

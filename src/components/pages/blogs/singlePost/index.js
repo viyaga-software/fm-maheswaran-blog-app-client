@@ -4,10 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import Search from "../../home/components/mainCategories/Search";
-import BlogContent from "./blog-content";
+import BlogContent from "./components/blog-content";
 import Utils from "@/lib/utils";
 import { format } from "date-fns";
+import Search from "../../home/components/main-categories/Search";
 
 const PostHeader = ({ data }) => {
   return (

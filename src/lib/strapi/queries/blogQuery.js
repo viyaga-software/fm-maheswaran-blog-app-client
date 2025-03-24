@@ -12,13 +12,13 @@ export const getFeaturedBlogsQuery = () => {
     }
 }
 
-export const getRecentBlogsQuery = ({ page, pageSize, sort = ["createdAt:desc"], search, categories }) => {
+export const getRecentBlogsQuery = ({ page, pageSize, sort = ["createdAt:desc"], q, categories }) => {
     return {
         fields: [
             "title", "slug", "excerpt", "featured_image", "createdAt"
         ],
         filters: {
-            ...(search ? { title: { $contains: search } } : {}),
+            ...(q ? { title: { $contains: q } } : {}),
             ...(categories ? { categories: { $contains: categories } } : {}),
             blog_status: { $eq: "published" }
         },

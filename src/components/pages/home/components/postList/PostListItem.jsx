@@ -8,7 +8,7 @@ import { format } from "date-fns";
 
 const PostListItem = ({ post }) => {
   return (
-    <Link href={`/${post.slug}`} className="block group">
+    <Link href={`/blogs/${post.slug}`} className="block group">
       <Card className="rounded-xl overflow-hidden shadow-lg bg-card text-card-foreground transition-all group-hover:shadow-2xl border border-border">
         {/* Image */}
         {post.featured_image && (
@@ -34,7 +34,7 @@ const PostListItem = ({ post }) => {
           </p>
 
           {/* Read More Button */}
-          <Link href={`/${post.slug}`} className="mt-2 inline-block">
+          <Link href={`/blogs/${post.slug}`} className="mt-2 inline-block">
             <Button variant="ghost" className="py-2 px-3 text-primary-foreground flex items-center gap-1 hover:bg-primary/90 hover:text-background transition-all">
               <span>Read More</span>
               <ArrowRightIcon className="w-4 h-4" />
